@@ -15,6 +15,7 @@ int main(){
     std::cout<<"used Ram:"<<info.available_kb/ 1048576.0<<" Gb \n";
     std::cout<<"used Ram:"<<info.used_kb / 1048576.0<<" Gb \n";
     std::cout<<"cpu model:"<<cpuinfo.model_name<<"\n";
+    std::cout<<"cpu mhz:"<<cpuinfo.cpu_mhz<<"\n";
 
 return 0;
 }
