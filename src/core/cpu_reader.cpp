@@ -1,47 +1,42 @@
 
 
-
-
 #include "cpu_reader.hpp"
 
-#include<iostream>
+#include <fstream>
+#include <iostream>
 #include <istream>
 #include <sstream>
-#include <fstream>
-#include<string>
+#include <string>
 
-cpuInfo read_cpu_info(){
-    cpuInfo info;
+cpuInfo read_cpu_info() {
+  cpuInfo info;
 
+  std::ifstream file("/proc/cpuinfo");
+  std::string line;
 
-    std::ifstream file("/proc/cpuinfo");
-    std::string line;
-    
+  while (std::getline(file, line)) {
 
-    while(std::getline(file,line)){
+    if (line.rfind("model name", 0) == 0) {
 
-        if(line.rfind("model name",0)==0){
-
-
-            auto pos=line.find(":");
-            if(pos==std::string::npos)continue;
-            std::string value=line.substr(pos+1);
-            info.model_name=value.substr(value.find_first_not_of(" \t"));
-          
-      
-        }
-        if (std::getline(file,line)){
-            if(line.rfind("cpu MHz",0)==0){
-
-           auto pos=line.find(":");
-           if(pos==std::string::npos)continue;
-
-           std::string value=line.substr(pos+1);
-           std::string mhz_in_string=value.substr(value.find_first_not_of(" \t"));
-info.cpu_mhz=std::stod(mhz_in_string);
-     
-            }
-        }
+      auto pos = line.find(":");
+      if (pos == std::string::npos)
+        continue;
+      std::string value = line.substr(pos + 1);
+      info.model_name = value.substr(value.find_first_not_of(" \t"));
     }
-    return info;
+    if (std::getline(file, line)) {
+      if (line.rfind("cpu MHz", 0) == 0) {
+
+        auto pos = line.find(":");
+        if (pos == std::string::npos)
+          continue;
+
+        std::string value = line.substr(pos + 1);
+        std::string mhz_in_string =
+            value.substr(value.find_first_not_of(" \t"));
+        info.cpu_mhz = std::stod(mhz_in_string);
+      }
+    }
+  }
+  return info;
 }
