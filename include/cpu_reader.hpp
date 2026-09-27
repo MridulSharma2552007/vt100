@@ -3,6 +3,12 @@
 #include <string>
 #include <vector>
 
+
+
+//<<<<<<<<-------Static data---------------------->>>>>>>>
+
+
+
 struct cpuInfo {
   double cpu_mhz = 0;
   int cpu_cores = 0;
@@ -11,6 +17,11 @@ struct cpuInfo {
 };
 
 cpuInfo read_cpu_info();
+
+
+
+
+//<<<---------For dynamic data---------------->>>>
 
 // CPU Data
 struct CpuTimes {

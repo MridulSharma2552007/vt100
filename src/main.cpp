@@ -6,6 +6,9 @@
 
 int main() {
 
+
+  //todo:make a data layer to simplify data , then make graphs using that data
+  
   MemInfo info = read_mem_info();
   cpuInfo cpuinfo = read_cpu_info();
   AllCpuTimes cpuData = get_cpu_data();

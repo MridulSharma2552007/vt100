@@ -1,0 +1,49 @@
+things to f#ck around 
+
+
+CPU
+Data	Source
+Overall CPU %	/proc/stat (first cpu line, delta over time)
+Per-core CPU %	/proc/stat (cpu0, cpu1, cpu2... lines)
+CPU model, MHz, cache, core count	/proc/cpuinfo
+Load average (1/5/15 min)	/proc/loadavg
+CPU temperature	/sys/class/thermal/thermal_zone*/temp (value in millidegrees C, divide by 1000)
+Per-core clock speed (live, changes with turbo boost)	/sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq
+
+
+
+
+
+
+RAM
+Data	Source
+Total / available / used / swap	/proc/meminfo (you've done this)
+Per-process memory	/proc/[pid]/status (VmRSS field)
+Process list
+Data	Source
+List of all running PIDs	Loop through /proc/ folder, filter numeric folder names
+Name, state, memory per process	/proc/[pid]/status
+CPU time per process (for %)	/proc/[pid]/stat (fields 14 & 15: utime, stime)
+Command line used to launch it	/proc/[pid]/
+
+
+
+Disk
+Data	Source
+Disk read/write activity	/proc/diskstats
+Disk space used/free per mount	statvfs() syscall (<sys/statvfs.h>), or parse df output
+
+
+Network
+Data	Source
+Bytes sent/received per interface	/proc/net/dev
+System info
+Data	Source
+Uptime	/proc/uptime
+Kernel version	/proc/version or uname() syscall
+Battery (laptops)	/sys/class/power_supply/BAT0/capacity and /status
+GPU (no /proc — needs external dependency)
+GPU vendor	How to get data
+Nvidia	Best: NVML library (libnvidia-ml.so, comes with Nvidia drivers) — proper C API, link against it directly. Easier but hacky: shell out to nvidia-smi --query-gpu=utilization.gpu,memory.used,temperature.gpu --format=csv and parse the text output
+AMD	/sys/class/drm/card0/device/gpu_busy_percent sysfs file (usage %), plus other files in that same folder for VRAM
+Intel integrated	intel_gpu_top tool output parsing, or /sys/class/drm/card0/ sysfs entries
