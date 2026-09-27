@@ -26,17 +26,15 @@ MemInfo read_mem_info(){
 
             info.total_kb=value;
         }
-
-         else if(line.rfind("MemAvailable:",0)==0){
+        else if(line.rfind("MemAvailable:",0)==0){
             std::istringstream iss(line);
             std::string unit, label;
             long value;
 
             iss>> label>>value>>unit;
 
-
             info.available_kb=value;
-         }
+        }
     }
     info.used_kb=info.total_kb - info.available_kb;
 
