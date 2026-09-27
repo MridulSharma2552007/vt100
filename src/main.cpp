@@ -1,6 +1,4 @@
-#include <fstream>
 #include <iostream>
-#include <string>
 
 // <<<--header files->>>
 #include "cpu_reader.hpp"

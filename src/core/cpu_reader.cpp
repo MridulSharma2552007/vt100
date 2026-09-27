@@ -3,9 +3,6 @@
 #include "cpu_reader.hpp"
 
 #include <fstream>
-#include <iostream>
-#include <istream>
-#include <sstream>
 #include <string>
 
 cpuInfo read_cpu_info() {
