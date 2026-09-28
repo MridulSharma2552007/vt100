@@ -3,7 +3,9 @@
 #include "cpu_reader.hpp"
 
 #include <cctype>
+#include <cstdio>
 #include <fstream>
+#include <iostream>
 #include <istream>
 #include <sstream>
 #include <string>
@@ -114,5 +116,42 @@ CpuMisc get_cpu_misc_data() {
     std::istringstream iss(line);
     iss >> misc.load.one_min >> misc.load.five_min >> misc.load.fifteen_min;
   }
+
+  // temps
+  int zone_index = 0;
+
+  while (true) {
+
+    std::string base_path =
+        "/sys/class/thermal/thermal_zone" + std::to_string(zone_index);
+
+    std::ifstream type_file(base_path + "/type");
+    std::ifstream temp_file(base_path + "/temp");
+
+    if (!type_file.is_open() || !temp_file.is_open()) {
+      break;
+    }
+
+    std::string sensorName;
+    std::string raw_temp;
+
+    if (std::getline(type_file, sensorName)) {
+
+      if (std::getline(temp_file, raw_temp)) {
+
+        double maskedtemp = std::stod(raw_temp);
+
+        temperature tempsStructure;
+
+        tempsStructure.degrees = maskedtemp / 1000;
+        tempsStructure.sensorName = sensorName;
+
+        misc.temps.push_back(tempsStructure);
+      }
+    }
+
+    zone_index++;
+  }
+
   return misc;
 }

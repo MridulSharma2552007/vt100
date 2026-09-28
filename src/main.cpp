@@ -53,6 +53,14 @@ int main() {
 
   std::cout << "\t" << "1min  " << misc.load.one_min << "\n";
   std::cout << "\t" << "5min  " << misc.load.five_min << "\n";
-  std::cout << "\t" << "15min "  << misc.load.fifteen_min << "\n";
+  std::cout << "\t" << "15min " << misc.load.fifteen_min << "\n";
+
+  std::cout << "\n--- Temps ---\n";
+
+  for (size_t i = 0; i < misc.temps.size(); i++) {
+    std::cout << "Type : " << misc.temps[i].sensorName
+              << "Temps : " << misc.temps[i].degrees << "*C " << "\n";
+  }
+
   return 0;
 }

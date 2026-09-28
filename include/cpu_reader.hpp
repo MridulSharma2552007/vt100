@@ -41,7 +41,7 @@ struct LoadAvg {
 };
 
 struct temperature {
-  long long millidegrees = 0;
+  double degrees = 0;
   std::string sensorName;
 };
 
