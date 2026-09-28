@@ -27,6 +27,7 @@ int main() {
 
   cpuInfo cpuinfo = read_cpu_info();
   AllCpuTimes cpuData = get_cpu_data();
+
   std::cout << "used Ram:" << info.total_kb / 1048576.0 << " Gb \n";
   std::cout << "used Ram:" << info.available_kb / 1048576.0 << " Gb \n";
   std::cout << "used Ram:" << info.used_kb / 1048576.0 << " Gb \n";
