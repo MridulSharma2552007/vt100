@@ -1,14 +1,9 @@
-CXX= g++ #set compiler
-CXXFLAGS= -std=c++17 -Iinclude  #include flags for header files
-
-SRC = $(shell find src -name "*.cpp") #path of all cpp files
-OUT= main  
-
 all:
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT) #command to compile
+	cmake -S . -B build
+	cmake --build build
 
 run: all
-	./$(OUT)
+	./build/main
 
 clean:
-	rm -f $	(OUT)
+	rm -rf build

@@ -1,3 +1,5 @@
+#include <ftxui/dom/elements.hpp>
+#include <ftxui/screen/screen.hpp>
 #include <iostream>
 
 // <<<--header files->>>
@@ -5,11 +7,23 @@
 #include "ram_reader.hpp"
 
 int main() {
-
-
-  //todo:make a data layer to simplify data , then make graphs using that data
-  
+  using namespace ftxui;
   MemInfo info = read_mem_info();
+  Element document = hbox({
+      text(std::to_string(info.available_kb)) | border,
+      text("middle") | border | flex,
+      text("right") | border,
+  });
+
+  auto screen = Screen::Create(Dimension::Full(),       // Width
+                               Dimension::Fit(document) // Height
+
+  );
+  Render(screen, document);
+
+  screen.Print();
+  // todo:make a data layer to simplify data , then make graphs using that data
+
   cpuInfo cpuinfo = read_cpu_info();
   AllCpuTimes cpuData = get_cpu_data();
   std::cout << "used Ram:" << info.total_kb / 1048576.0 << " Gb \n";
