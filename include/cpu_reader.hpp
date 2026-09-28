@@ -3,11 +3,7 @@
 #include <string>
 #include <vector>
 
-
-
 //<<<<<<<<-------Static data---------------------->>>>>>>>
-
-
 
 struct cpuInfo {
   double cpu_mhz = 0;
@@ -17,9 +13,6 @@ struct cpuInfo {
 };
 
 cpuInfo read_cpu_info();
-
-
-
 
 //<<<---------For dynamic data---------------->>>>
 
@@ -40,3 +33,21 @@ struct AllCpuTimes {
   std::vector<CpuTimes> cores;
 };
 AllCpuTimes get_cpu_data();
+
+struct LoadAvg {
+  double one_min = 0;
+  double five_min = 0;
+  double fifteen_min = 0;
+};
+
+struct temperature {
+  long long millidegrees = 0;
+  std::string sensorName;
+};
+
+struct CpuMisc {
+  LoadAvg load;
+  std::vector<temperature> temps;
+};
+
+CpuMisc get_cpu_misc_data();

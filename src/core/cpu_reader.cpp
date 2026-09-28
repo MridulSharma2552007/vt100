@@ -4,6 +4,7 @@
 
 #include <cctype>
 #include <fstream>
+#include <istream>
 #include <sstream>
 #include <string>
 
@@ -65,7 +66,7 @@ cpuInfo read_cpu_info() {
   return info;
 }
 
-/// for dynamic data 
+/// for dynamic data
 
 AllCpuTimes get_cpu_data() {
   AllCpuTimes data;
@@ -100,4 +101,18 @@ AllCpuTimes get_cpu_data() {
     }
   }
   return data;
+}
+
+CpuMisc get_cpu_misc_data() {
+  CpuMisc misc;
+
+  std::ifstream file("/proc/loadavg");
+  std::string line;
+
+  while (std::getline(file, line)) {
+
+    std::istringstream iss(line);
+    iss >> misc.load.one_min >> misc.load.five_min >> misc.load.fifteen_min;
+  }
+  return misc;
 }

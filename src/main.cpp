@@ -9,6 +9,7 @@
 int main() {
   using namespace ftxui;
   MemInfo info = read_mem_info();
+  CpuMisc misc = get_cpu_misc_data();
   Element document = hbox({
       text(std::to_string(info.available_kb)) | border,
       text("middle") | border | flex,
@@ -50,5 +51,8 @@ int main() {
               << ", idle: " << cpuData.cores[i].idle << "\n";
   }
 
+  std::cout << "\t" << "1min  " << misc.load.one_min << "\n";
+  std::cout << "\t" << "5min  " << misc.load.five_min << "\n";
+  std::cout << "\t" << "15min "  << misc.load.fifteen_min << "\n";
   return 0;
 }
