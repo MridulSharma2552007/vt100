@@ -157,7 +157,6 @@ CpuMisc get_cpu_misc_data() {
 
   int cpu_index = 0;
 
-  allCpuFrequency freqvector;
   while (true) {
     std::string base_path_frequency = "/sys/devices/system/cpu/cpu" +
                                       std::to_string(cpu_index) +
@@ -176,7 +175,7 @@ CpuMisc get_cpu_misc_data() {
       freq.frequency = std::stoll(freqline);
       freq.cpu = cpu_index;
 
-      freqvector.freqvector.push_back(freq); // putting to vector
+      misc.frequencies.push_back(freq);
     }
 
     cpu_index++;

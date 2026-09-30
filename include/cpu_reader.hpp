@@ -45,18 +45,14 @@ struct temperature {
   std::string sensorName;
 };
 
-struct CpuMisc {
-  LoadAvg load;
-  std::vector<temperature> temps;
-};
-// frequency
-
 struct cpufreq {
   int cpu;
   long long frequency;
 };
 
-struct allCpuFrequency {
-  std::vector<cpufreq> freqvector;
+struct CpuMisc {
+  LoadAvg load;
+  std::vector<temperature> temps;
+  std::vector<cpufreq> frequencies;
 };
 CpuMisc get_cpu_misc_data();

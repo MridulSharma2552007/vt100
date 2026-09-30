@@ -64,5 +64,11 @@ int main() {
               << "Temps : " << misc.temps[i].degrees << "*C " << "\n";
   }
 
+  std::cout << "\n--- CPU frequencies ---\n";
+  for (const auto &frequency : misc.frequencies) {
+    std::cout << "cpu" << frequency.cpu << ": " << frequency.frequency / 1000.0
+              << " MHz\n";
+  }
+
   return 0;
 }
