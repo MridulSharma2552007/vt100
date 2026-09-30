@@ -49,5 +49,14 @@ struct CpuMisc {
   LoadAvg load;
   std::vector<temperature> temps;
 };
+// frequency
 
+struct cpufreq {
+  int cpu;
+  long long frequency;
+};
+
+struct allCpuFrequency {
+  std::vector<cpufreq> freqvector;
+};
 CpuMisc get_cpu_misc_data();

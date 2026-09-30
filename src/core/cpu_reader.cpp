@@ -153,5 +153,34 @@ CpuMisc get_cpu_misc_data() {
     zone_index++;
   }
 
+  // Cpu frequency blah balh
+
+  int cpu_index = 0;
+
+  allCpuFrequency freqvector;
+  while (true) {
+    std::string base_path_frequency = "/sys/devices/system/cpu/cpu" +
+                                      std::to_string(cpu_index) +
+                                      "/cpufreq/scaling_cur_freq";
+
+    std::ifstream freqfile(base_path_frequency);
+
+    std::string freqline;
+
+    if (!freqfile.is_open()) {
+      break;
+    }
+
+    if (std::getline(freqfile, freqline)) {
+      cpufreq freq;
+      freq.frequency = std::stoll(freqline);
+      freq.cpu = cpu_index;
+
+      freqvector.freqvector.push_back(freq); // putting to vector
+    }
+
+    cpu_index++;
+  }
+
   return misc;
 }
