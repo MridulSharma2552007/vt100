@@ -10,15 +10,15 @@ Load average (1/5/15 min)	/proc/loadavg
 CPU temperature	/sys/class/thermal/thermal_zone*/temp (value in millidegrees C, divide by 1000)
 Per-core clock speed (live, changes with turbo boost)	/sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq
 
-
-
-
+Cpu doneeeeeeeeeeee
 
 
 RAM
 Data	Source
-Total / available / used / swap	/proc/meminfo (you've done this)
+Total / available / used / swap	/proc/meminfo (hv done this)
 Per-process memory	/proc/[pid]/status (VmRSS field)
+
+
 Process list
 Data	Source
 List of all running PIDs	Loop through /proc/ folder, filter numeric folder names

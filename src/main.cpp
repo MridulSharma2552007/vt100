@@ -11,6 +11,7 @@ int main() {
   using namespace ftxui;
   MemInfo info = read_mem_info();
   CpuMisc misc = get_cpu_misc_data();
+  ProcessDataBlockVector pid_ram_usage = get_process_data();
   Element document = hbox({
       text(std::to_string(info.available_kb)) | border,
       text("middle") | border | flex,
@@ -68,6 +69,13 @@ int main() {
   for (const auto &frequency : misc.frequencies) {
     std::cout << "cpu" << frequency.cpu << ": " << frequency.frequency / 1000.0
               << " MHz\n";
+  }
+
+  for (size_t i = 0; i < pid_ram_usage.process_data.size(); i++) {
+    std::cout << "PID: " << pid_ram_usage.process_data[i].pid << "\n";
+    std::cout << "Name: " << pid_ram_usage.process_data[i].process_name << "\n";
+    std::cout << "Usage Mb : "
+              << pid_ram_usage.process_data[i].size_in_kb / 1024 << "\n";
   }
 
   return 0;
