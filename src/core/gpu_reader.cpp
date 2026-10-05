@@ -2,7 +2,7 @@
 
 #include "gpu_reader.hpp"
 
-#include <dlfcn.h> //dynamic loading
+#include <dlfcn.h> //dynamic linking
 
 GpuReader::GpuReader() {}
 

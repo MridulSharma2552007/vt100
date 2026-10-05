@@ -1,6 +1,7 @@
 #pragma once
 class GpuReader {
 public:
+
   GpuReader();
   ~GpuReader();
 
