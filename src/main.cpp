@@ -6,20 +6,17 @@
 
 // <<<--header files->>>
 #include "cpu_reader.hpp"
+#include "gpu_reader.hpp"
 #include "ram_reader.hpp"
 
 int main() {
 
-  void *nvml = dlopen("libnvidia-ml.so", RTLD_LAZY);
-
-  if (!nvml) {
-    std::cerr << "Failed to load NVML: " << dlerror() << '\n';
-    return 1;
+  GpuReader gpu;
+  if (!gpu.init()) {
+    return -1;
+  } else {
+    std::cout << "Gpu llib located" << "\n";
   }
-
-  std::cout << "NVML loaded!\n";
-
-  dlclose(nvml);
 
   // using namespace ftxui;
   // MemInfo info = read_mem_info();
