@@ -58,6 +58,8 @@ Command line used to launch it	/proc/[pid]/
 
 
 
+
+
 Disk
 Data	Source
 Disk read/write activity	/proc/diskstats
@@ -74,6 +76,7 @@ Kernel version	/proc/version or uname() syscall
 Battery (laptops)	/sys/class/power_supply/BAT0/capacity and /status
 GPU (no /proc — needs external dependency)
 GPU vendor	How to get data
+
 Nvidia	Best: NVML library (libnvidia-ml.so, comes with Nvidia drivers) — proper C API, link against it directly. Easier but hacky: shell out to nvidia-smi --query-gpu=utilization.gpu,memory.used,temperature.gpu --format=csv and parse the text output
 AMD	/sys/class/drm/card0/device/gpu_busy_percent sysfs file (usage %), plus other files in that same folder for VRAM
 Intel integrated	intel_gpu_top tool output parsing, or /sys/class/drm/card0/ sysfs entries
