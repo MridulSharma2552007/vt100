@@ -17,7 +17,7 @@ int main() {
   } else {
     std::cout << "Gpu llib located" << "\n";
   }
-
+  gpu.init();
   // using namespace ftxui;
   // MemInfo info = read_mem_info();
   // CpuMisc misc = get_cpu_misc_data();

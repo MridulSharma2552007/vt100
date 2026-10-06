@@ -2,13 +2,19 @@
 
 #include <string>
 
+using nvmlReturn_t = int;
+using nvmlDevice_t = void *;
+
+using nvmlInit_t = nvmlReturn_t (*)();
+
+using nvmlDeviceGetHandleByIndex_t = nvmlReturn_t (*)(unsigned int,
+                                                      nvmlDevice_t *);
+
+using nvmlDeviceGetName_t = nvmlReturn_t (*)(nvmlDevice_t, char *,
+                                             unsigned int);
+
 struct GpuInfo {
   std::string name;
-  unsigned int utilization;
-  unsigned long long memory_used;
-  unsigned long long memory_total;
-  unsigned int temperature;
-  unsigned int power;
 };
 
 class GpuReader {
@@ -21,4 +27,10 @@ public:
 
 private:
   void *nvml;
+
+  nvmlInit_t nvmlInit;
+  nvmlDeviceGetHandleByIndex_t getHandle;
+  nvmlDeviceGetName_t getName;
+
+  nvmlDevice_t device;
 };

@@ -13,9 +13,11 @@ GpuReader::~GpuReader() {
 }
 
 bool GpuReader::init() {
-  void *nvml = dlopen("libnvidia-ml.so", RTLD_LAZY);
+  nvml = dlopen("libnvidia-ml.so", RTLD_LAZY);
   if (!nvml) {
     return false;
   }
+  nvmlInit = (nvmlInit_t)dlsym(nvml, "nvmlInit_v2");
+  
   return true;
 }
