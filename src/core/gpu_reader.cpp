@@ -4,9 +4,13 @@
 
 #include <dlfcn.h> //dynamic linking
 
-GpuReader::GpuReader() {}
+GpuReader::GpuReader() : nvml(nullptr) {}
 
-GpuReader::~GpuReader() {}
+GpuReader::~GpuReader() {
+  if (nvml) {
+    dlclose(nvml);
+  }
+}
 
 bool GpuReader::init() {
   void *nvml = dlopen("libnvidia-ml.so", RTLD_LAZY);
