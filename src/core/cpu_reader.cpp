@@ -3,7 +3,6 @@
 #include "cpu_reader.hpp"
 
 #include <cctype>
-#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <istream>

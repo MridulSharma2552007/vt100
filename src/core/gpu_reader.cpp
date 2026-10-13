@@ -1,23 +1,47 @@
 // for now only nvidia supported later includeing amd and stuff TODO
 
 #include "gpu_reader.hpp"
+#include <dlfcn.h>
 
-#include <dlfcn.h> //dynamic linking
-
-GpuReader::GpuReader() : nvml(nullptr) {}
-
-GpuReader::~GpuReader() {
-  if (nvml) {
-    dlclose(nvml);
-  }
-}
-
-bool GpuReader::init() {
+void *nvml = nullptr;
+bool init() {
   nvml = dlopen("libnvidia-ml.so", RTLD_LAZY);
-  if (!nvml) {
+  if (!nvml)
+    return false;
+
+  auto nvmlInit = (nvmlInit_t)dlsym(nvml, "nvmlInit_v2");
+  if (!nvmlInit || nvmlInit() != 0) {
+    dlclose(nvml);
+    nvml = nullptr;
     return false;
   }
-  nvmlInit = (nvmlInit_t)dlsym(nvml, "nvmlInit_v2");
-  
+
   return true;
+}
+
+GpuInfo gpu_info() {
+
+  GpuInfo info;
+  if (!nvml)
+    return info;
+
+  auto getHandle = (nvmlDeviceGetHandleByIndex_t)dlsym(
+      nvml, "nvmlDeviceGetHandleByIndex_v2");
+
+  auto getName = (nvmlDeviceGetName_t)dlsym(nvml, "nvmlDeviceGetName");
+  if (!getHandle || !getName)
+    return info;
+
+  nvmlDevice_t device = nullptr;
+
+  if (getHandle(0, &device) != 0)
+    return info;
+
+  char name[100]{};
+  if (getName(device, name, sizeof((name))) != 0)
+    return info;
+
+  info.name = name;
+
+  return info;
 }

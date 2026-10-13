@@ -16,21 +16,6 @@ using nvmlDeviceGetName_t = nvmlReturn_t (*)(nvmlDevice_t, char *,
 struct GpuInfo {
   std::string name;
 };
+bool init();
 
-class GpuReader {
-public:
-  GpuReader();
-  ~GpuReader();
-
-  bool init();
-  GpuInfo read();
-
-private:
-  void *nvml;
-
-  nvmlInit_t nvmlInit;
-  nvmlDeviceGetHandleByIndex_t getHandle;
-  nvmlDeviceGetName_t getName;
-
-  nvmlDevice_t device;
-};
+GpuInfo gpu_info();
