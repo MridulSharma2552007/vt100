@@ -51,6 +51,18 @@ GpuInfo gpu_info() {
     info.memoryUsed = memory.used;
     info.memoryTotal = memory.total;
   }
+  if (info.memoryTotal > 0) {
+    info.utilization =
+        (static_cast<double>(info.memoryUsed) / info.memoryTotal) * 100.0;
+  }
+  auto getTemperature =
+      (nvmlDeviceGetTemperature_t)dlsym(nvml, "nvmlDeviceGetTemperature");
+
+  unsigned int temperature = 0;
+
+  if (getTemperature && getTemperature(device, 0, &temperature) == 0) {
+    info.temperature = temperature;
+  }
 
   return info;
 }

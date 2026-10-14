@@ -29,6 +29,8 @@ struct nvmlMemory_t {
 
 using nvmlDeviceGetMemoryInfo_t = nvmlReturn_t (*)(nvmlDevice_t,
                                                    nvmlMemory_t *);
+using nvmlDeviceGetTemperature_t = nvmlReturn_t (*)(nvmlDevice_t, unsigned int,
+                                                    unsigned int *);
 
 bool init();
 

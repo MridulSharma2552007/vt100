@@ -22,7 +22,8 @@ int main() {
   std::cout << "GPU: " << gpu.name << '\n';
   std::cout << "VRAM Used: " << gpu.memoryUsed / (1024 * 1024) << " MiB\n";
   std::cout << "VRAM Total: " << gpu.memoryTotal / (1024 * 1024) << " MiB\n";
-  
+  std::cout << "Usage :" << gpu.utilization << "\n";
+  std::cout << "Temps: " << gpu.temperature << "\n";
 
   // using namespace ftxui;
   // MemInfo info = read_mem_info();
