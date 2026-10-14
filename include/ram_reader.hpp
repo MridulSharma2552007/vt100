@@ -13,8 +13,8 @@ MemInfo read_mem_info();
 struct ProcessData {
   // for pid and ram stuff
 
-  long pid;
-  long long size_in_kb;
+  long pid = 0;
+  long long size_in_kb = 0;
   std::string process_name;
 };
 

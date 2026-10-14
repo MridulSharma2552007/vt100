@@ -18,7 +18,7 @@ struct GpuInfo {
   unsigned int utilization = 0;
   unsigned long long memoryUsed = 0;
   unsigned long long memoryTotal = 0;
-  unsigned int temperature;
+  unsigned int temperature = 0;
 };
 
 struct nvmlMemory_t {
