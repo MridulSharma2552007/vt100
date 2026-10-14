@@ -32,6 +32,11 @@ GpuInfo gpu_info() {
   if (!getHandle || !getName)
     return info;
 
+  auto getMemoryInfo =
+      (nvmlDeviceGetMemoryInfo_t)dlsym(nvml, "nvmlDeviceGetMemoryInfo");
+
+  nvmlMemory_t memory{};
+
   nvmlDevice_t device = nullptr;
 
   if (getHandle(0, &device) != 0)
@@ -42,6 +47,10 @@ GpuInfo gpu_info() {
     return info;
 
   info.name = name;
+  if (getMemoryInfo && getMemoryInfo(device, &memory) == 0) {
+    info.memoryUsed = memory.used;
+    info.memoryTotal = memory.total;
+  }
 
   return info;
 }

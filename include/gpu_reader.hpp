@@ -15,7 +15,21 @@ using nvmlDeviceGetName_t = nvmlReturn_t (*)(nvmlDevice_t, char *,
 
 struct GpuInfo {
   std::string name;
+  unsigned int utilization = 0;
+  unsigned long long memoryUsed = 0;
+  unsigned long long memoryTotal = 0;
+  unsigned int temperature;
 };
+
+struct nvmlMemory_t {
+  unsigned long long total;
+  unsigned long long free;
+  unsigned long long used;
+};
+
+using nvmlDeviceGetMemoryInfo_t = nvmlReturn_t (*)(nvmlDevice_t,
+                                                   nvmlMemory_t *);
+
 bool init();
 
 GpuInfo gpu_info();
